@@ -1,0 +1,86 @@
+html, body, nav {
+	display: block;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+.site_header {
+	height: 60px;
+	background: #03a9f4;
+	color: white;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.site_header span {
+	cursor: pointer;
+	flex: 1;
+	font-size: 1.5rem;
+	line-height: 60px;
+	font-weight: 900;
+	margin: 0 8px;
+}
+
+.site_header input[name='search'] {
+	height: 40px;
+	display: block;
+	margin: 0 8px;
+	padding: 0 4px;
+	border-radius: 3px;
+	border: none !important;
+}
+
+.page_nav {
+	min-height: 60px;
+	border-top: 0.4px solid #e4e4e4;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.page_nav > button {
+	border: none !important;
+	background: #03a9f4;
+	line-height: 40px;
+	min-width: 120px;
+	outline: none;
+	cursor: pointer;
+	transition: all 0.07s ease-in;
+}
+
+.page_nav > button:hover {
+	background: #1565c0;
+	color: white;
+}
+
+.product_listing {
+	display: flex;
+	flex: 1;
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin: 0;
+	padding: 0;
+	justify-content: space-between;
+}
+
+.product {
+	display: flex;
+	cursor: pointer;
+	flex: 1;
+	min-width: 20%;
+	margin: 4px;
+	padding: 16px;
+	line-height: 24px;
+	font-size: 16px;
+	height: 200px;
+	box-shadow: 0 0 4px 1px #e4e4e4;
+	color: red;
+}
