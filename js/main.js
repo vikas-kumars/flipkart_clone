@@ -43,7 +43,7 @@ function renderProducts(response) {
 function getPage() {
 	let request = new XMLHttpRequest();
 	let queryString = getQueryParams();
-	let url = "products.php?" + queryString;
+	let url = "backend/products.php?" + queryString;
 	request.open("get", url);
 	request.onreadystatechange = function() {
 		if (request.readyState == 3) {
@@ -60,7 +60,7 @@ function search(ev) {
 		filters.search = searchBar.value;
 		let request = new XMLHttpRequest();
 		let queryString = getQueryParams();
-		let url = "products.php?" + queryString;
+		let url = "backend/products.php?" + queryString;
 
 		request.open("get", url);
 		request.onreadystatechange = function() {
