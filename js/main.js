@@ -3,8 +3,11 @@ let filters = {
 	size: 10,
 	search: ''
 }
+
+let imagesLoadedCounter = 0;
 let productList = undefined;
 let searchBar = undefined;
+const body = document.querySelector('body')
 
 function getQueryParams() {
 	let arr = [];
@@ -16,8 +19,8 @@ function getQueryParams() {
 	return arr.join('&');
 }
 
-function printClick(ev) {
-	console.log(this.dataset['productName'])
+function handleClick(ev) {
+	window.location.href = 'details.html?id=' + this.dataset['productId'];
 }
 
 function renderProducts(response) {
@@ -26,21 +29,58 @@ function renderProducts(response) {
 		productList.removeChild(productList.firstChild);
 	}
 
+	let count = 0;
+
 	for (let i = 0; i < data.length; i++) {
 		let product = data[i];
-		let productDiv = document.createElement("div");
+
+		let productImage = document.createElement('img');
+		imagesLoaded(productImage, function (x) {
+			console.log(x, "Image loaded");
+			count = count + 1;
+			console.log(count);
+			if (count == data.length) {
+				console.log("All images loaded");
+				body.classList.remove('loading');
+			}
+
+		})
+		productImage.setAttribute('src', product.image_url);
+
 		let name = document.createElement("span");
-		name.innerText = product.id + ". " + product.name;
-		productDiv.appendChild(name);
+		name.classList.add('product__name')
+		name.innerText = product.name;
+
+		let cartIcon = document.createElement('i');
+		cartIcon.classList.add('fa');
+		cartIcon.classList.add('fa-cart-plus');
+		cartIcon.classList.add('product__cart-icon');
+
+
+		let productActions = document.createElement('div');
+		productActions.classList.add('product__actions');
+		productActions.appendChild(name);
+		productActions.appendChild(cartIcon);
+
+		let productImageContainer = document.createElement('div');
+		productImageContainer.classList.add('product__image-container');
+		productImageContainer.appendChild(productImage);
+		productImageContainer.addEventListener('click', handleClick);
+		productImageContainer.dataset['productId'] = product.id;
+
+		let productDiv = document.createElement("div");
 		productDiv.classList.add("product");
-		productDiv.dataset['productName'] = product.name;
-		productDiv.addEventListener('click', printClick);
+
+		productDiv.appendChild(productImageContainer);
+		productDiv.appendChild(productActions);
+
 		productList.appendChild(productDiv);
 
 	}
 }
 
 function getPage() {
+	body.classList.add('loading');
 	let request = new XMLHttpRequest();
 	let queryString = getQueryParams();
 	let url = "backend/products.php?" + queryString;
