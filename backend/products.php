@@ -36,7 +36,7 @@
 		$success = false;
 	} else {
 		$starting_product = (($page - 1) * $page_size);
-		$query = "select * from products ";
+		$query = "select id, name, image_url from products ";
 		if (isset($search_term)) {
 			$query .= "where name like '%$search_term%' ";
 		}
